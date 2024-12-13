@@ -1,6 +1,5 @@
 import turtle
 
-
 class Paddle(turtle.Turtle):
     def __init__(self):
         super().__init__()  # I do this because I don't want to type self.paddle.(Method)
@@ -14,7 +13,7 @@ class Paddle(turtle.Turtle):
     # tell the paddle to move to the left
     def move_left(self):
         x = self.xcor()
-        x -= 50  # set how far the paddle can move to the left
+        x -= 80  # set how far the paddle can move to the left
         if x < -350:  # check if it goes over border, if not, do the following methods
             x = -350
         self.setx(x)
@@ -22,7 +21,7 @@ class Paddle(turtle.Turtle):
     # move the paddle to move to the right
     def move_right(self):
         x = self.xcor()
-        x += 50  # set how far the paddle can move to the right
+        x += 80  # set how far the paddle can move to the right
         if x > 350:  # check if it goes over border, if not, do the following methods
             x = 350
         self.setx(x)
