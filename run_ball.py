@@ -1,6 +1,6 @@
 import turtle
-import ball
-import paddle
+from ball import Ball
+from paddle import Paddle
 
 
 class Game:
@@ -12,8 +12,8 @@ class Game:
         self.screen.setup(1000, 800)
         self.screen.bgcolor("black")
         self.draw_border()
-        self.ball = ball.Ball()
-        self.paddle = paddle.Paddle()
+        self.ball = Ball()
+        self.paddle = Paddle()
 
     def draw_border(self):
         turtle.penup()
@@ -28,8 +28,14 @@ class Game:
 
     def run(self):
         while True:
-            self.screen.update()
-
+            turtle.update()
+            self.ball.move()
+            self.ball.wall_bounce_horizontal()
+            self.ball.wall_bounce_vertical()
+            if (self.ball.ycor() > -240 and self.ball.ycor() < -230) and \
+                    (self.paddle.xcor() - 50 < self.ball.xcor() < self.paddle.xcor() + 50):
+                self.ball.sety(-230)
+                self.ball.paddle_bounce()
 
 a = Game()
 a.run()
