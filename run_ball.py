@@ -1,6 +1,8 @@
 import turtle
+import time
 from ball import Ball
 from paddle import Paddle
+from obstacles import Obstacle
 
 
 class Game:
@@ -11,10 +13,17 @@ class Game:
         self.screen = turtle.Screen()
         self.screen.setup(1000, 800)
         self.screen.bgcolor("black")
+
+        # initialize the game with ball, paddle, border and create all obstacles
         self.draw_border()
         self.ball = Ball()
         self.paddle = Paddle()
+        self.obstacles = []
+        for y in range(250, 150, -30):
+            for x in range(-350, 400, 70):
+                self.obstacles.append(Obstacle(x, y))
 
+    # draw border
     def draw_border(self):
         turtle.penup()
         turtle.color("white")
@@ -26,16 +35,35 @@ class Game:
         turtle.goto(400, -300)
         turtle.goto(-400, -300)
 
+    # run the program
     def run(self):
         while True:
-            turtle.update()
+            # ball starts to move
             self.ball.move()
+
+            # Implement the wall bounce
             self.ball.wall_bounce_horizontal()
             self.ball.wall_bounce_vertical()
-            if (self.ball.ycor() > -240 and self.ball.ycor() < -230) and \
-                    (self.paddle.xcor() - 50 < self.ball.xcor() < self.paddle.xcor() + 50):
+
+            #  check paddle bounce
+            if (self.ball.ycor() > -240 and self.ball.ycor() < -230) and (self.paddle.xcor() - 50 < self.ball.xcor() < self.paddle.xcor() + 50):
                 self.ball.sety(-230)
                 self.ball.paddle_bounce()
+
+            # check obstacle bounce
+            for obstacle in self.obstacles:
+                if obstacle.isvisible() and \
+                        (obstacle.ycor() - 10 < self.ball.ycor() < obstacle.ycor() + 10) and \
+                        (obstacle.xcor() - 35 < self.ball.xcor() < obstacle.xcor() + 35):
+                    obstacle.hideturtle()  # hide the obstacle if it's already hit by the ball
+                    self.obstacles.remove(obstacle)  # remove hit obstacle id
+                    self.ball.obstacle_bounce()
+            turtle.update()  # update screen
+
+            # This is here to slow down the ball, if this sleep timer does not exist,
+            # ball speed will reach the speed of light
+            time.sleep(0.001)
+
 
 a = Game()
 a.run()
