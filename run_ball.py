@@ -19,9 +19,11 @@ class Game:
         self.ball = Ball()
         self.paddle = Paddle()
         self.obstacles = []
-        for y in range(250, 150, -30):
-            for x in range(-350, 400, 70):
+        for y in range(275, 185, -30):
+            for x in range(-350, 401, 70):
                 self.obstacles.append(Obstacle(x, y))
+
+        self.levels = 1
 
     # draw border
     def draw_border(self):
@@ -41,23 +43,28 @@ class Game:
             # ball starts to move
             self.ball.move()
 
-            # Implement the wall bounce
+            # Implement the wall bounce check method
             self.ball.wall_bounce_horizontal()
             self.ball.wall_bounce_vertical()
 
+
             #  check paddle bounce
-            if (self.ball.ycor() > -240 and self.ball.ycor() < -230) and (self.paddle.xcor() - 50 < self.ball.xcor() < self.paddle.xcor() + 50):
+            if -240 < self.ball.ycor() < -230 and (self.paddle.xcor() - 70 < self.ball.xcor() < self.paddle.xcor() + 70):
                 self.ball.sety(-230)
                 self.ball.paddle_bounce()
 
             # check obstacle bounce
             for obstacle in self.obstacles:
-                if obstacle.isvisible() and \
-                        (obstacle.ycor() - 10 < self.ball.ycor() < obstacle.ycor() + 10) and \
-                        (obstacle.xcor() - 35 < self.ball.xcor() < obstacle.xcor() + 35):
+                if (obstacle.isvisible() and (obstacle.ycor() - 10 < self.ball.ycor() < obstacle.ycor() + 10)
+                        and obstacle.xcor() - 35 < self.ball.xcor() < obstacle.xcor() + 35):
                     obstacle.hideturtle()  # hide the obstacle if it's already hit by the ball
                     self.obstacles.remove(obstacle)  # remove hit obstacle id
                     self.ball.obstacle_bounce()
+
+            # check game over
+            if self.ball.ycor() < -287:
+                break
+
             turtle.update()  # update screen
 
             # This is here to slow down the ball, if this sleep timer does not exist,
