@@ -1,5 +1,7 @@
 import turtle
 import time
+import sys
+import random
 from ball import Ball
 from paddle import Paddle
 from obstacles import Obstacle
@@ -25,16 +27,20 @@ class Game:
 
         self.obstacles = []  # A list to store obstacles ID created from for loop
         # Start generate obstacles and put it in list
-        for y in range(275, 220, -30):
+        for y in range(275, 200, -30):
             for x in range(-350, 400, 70):
                 self.obstacles.append(Obstacle(x, y))
+
+        self.hit_count = 0
+        self.spawn_delay = 0.1
+        self.last_spawn = time.time()
 
         # introduce interface class
         self.ui = Interface()
         self.scores = 0
         self.level = 1
-        self.lives = 4  # set how many lives you want
-        self.highest_scores = 0  # variable for storing highest scores
+        self.lives = 3  # set how many lives you want
+        self.highest_scores = 0  # variable for highest score
         self.running = False
 
     # Start ui
@@ -48,21 +54,50 @@ class Game:
         self.ui.show_in_game_stats(self.scores, self.lives, self.level)
         self.run()
 
+    def new_game(self):
+        self.ui.menu.clear()
+        self.ball = Ball()
+        self.paddle = Paddle()
+        self.lives = 3
+        self.ball.goto(0, 0)
+        self.ui.stats.clear()
+        for obstacle in self.obstacles:
+            obstacle.hideturtle()
+        self.obstacles.clear()
+        for y in range(275, 200, -30):
+            for x in range(-350, 400, 70):
+                self.obstacles.append(Obstacle(x, y))
+
+        # Reset paddle position
+        self.paddle.goto(0, -250)
+
+        # Restart game by running the game loop
+        self.run()
+
+    def end_game(self):
+        print("See you next time :)")
+        sys.exit()
+
     # check wall bounce in xcor
     def check_wall_collision_x(self):
         if self.ball.xcor() > 390:
             self.ball.setx(390)
             self.ball.bounce_off_xcor()
+            self.hit_count += 1
 
         if self.ball.xcor() < -390:  # Check wall bounce
             self.ball.setx(-390)
             self.ball.bounce_off_xcor()  # Change parameter to opposite
+            self.hit_count += 1
+        self.add_random_obstacle()
 
     # check wall bounce in ycor
     def check_wall_collision_y(self):
         if self.ball.ycor() > 287:  # Check wall bounce top side
             self.ball.sety(287)
             self.ball.bounce_off_ycor()  # Change direction of vx to opposite
+            self.hit_count += 1
+        self.add_random_obstacle()
 
     # check paddle bounce
     def check_paddle_bounce(self):
@@ -70,6 +105,8 @@ class Game:
                 self.paddle.xcor() - 50 < self.ball.xcor() < self.paddle.xcor() + 50:
             self.ball.sety(-231)
             self.ball.bounce_off_ycor()  # Change direction of vy to opposite
+            self.hit_count += 1
+        self.add_random_obstacle()
 
     # check obstacle bounce
     def check_obstacles_collision(self):
@@ -81,6 +118,19 @@ class Game:
                 self.obstacles.remove(obstacle)  # Remove hit obstacle ID
                 self.ball.bounce_off_ycor()  # Change direction of vy to opposite
                 self.scores += 100
+                self.hit_count += 1
+        self.add_random_obstacle()
+
+    def add_random_obstacle(self):
+        if self.hit_count == 10:
+            current_time = time.time()
+            if current_time - self.last_spawn >= self.spawn_delay:
+                self.hit_count = 0
+                self.last_spawn = current_time
+                x = random.randint(-350, 350)
+                y = random.randint(0, 200)
+                new_obstacle = Obstacle(x, y)
+                self.obstacles.append(new_obstacle)
 
     # check if the ball hit the bottom screen border (pass the paddle or no)
     def check_lose_life(self):
@@ -90,6 +140,9 @@ class Game:
             self.ball.goto(0, 0)
             self.ball.vx = 1.5
             self.ball.vy = 1.5
+
+    def check_game_pass(self):
+        return len(self.obstacles) == 0
 
     # check live = 0
     def check_game_over(self):
@@ -112,9 +165,14 @@ class Game:
             # after check everything update game stats
             self.ui.update_in_game_stats(self.scores, self.lives, self.level)
 
+            if self.check_game_pass():
+                self.level += 1
+                self.ball.vx += 0.7
+                self.ball.vy += 0.7
+                self.new_game()
+
             # check if live = 0 if so, end the game (break the loop)
             if self.check_game_over():
-                self.ball.setcolor()
                 # check if score higher then highest
                 if self.scores > self.highest_scores:
                     self.highest_scores = self.scores
@@ -125,6 +183,8 @@ class Game:
                 for obstacle in self.obstacles:
                     obstacle.hideturtle()
                 self.ui.stats.clear()
+                self.ui.show_game_over(self.scores, self.highest_scores)
+
                 break
 
             turtle.update()  # update screen so turtle doesn't crash
@@ -132,11 +192,15 @@ class Game:
             # This is here to slow down the ball, if this sleep timer does not exist,
             # ball speed will reach the speed of light (not really, and yes, it's a bug and I don't know how to fix it)
             # It seems like this happened due to the obstacles list for loop, loops faster when there's less item
-            # and every time the loop is lessen the ball speed increases
+            # and every time the loop is lessened the ball speed increases
             time.sleep(0.001)
 
-            # show the game_over ui
-        self.ui.show_game_over(self.scores, self.highest_scores)
+        self.screen.onkey(self.new_game, "r")
+        self.scores = 0
+        self.level = 1
+        self.ball.vx = 1.5
+        self.ball.vy = 1.5
+        self.screen.onkey(self.end_game, "q")
 
 
 a = Game()
