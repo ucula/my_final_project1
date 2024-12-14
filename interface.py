@@ -12,6 +12,7 @@ class Interface:
 
     def draw_border(self):
         """Draw the border of the game."""
+        self.border.hideturtle()
         self.border.penup()
         self.border.color("white")
         self.border.pensize(5)
@@ -24,17 +25,19 @@ class Interface:
             self.border.left(90)
 
     def show_menu(self):
+        self.menu.hideturtle()
         self.menu.penup()
         self.menu.color("white")
         self.menu.goto(0, 100)
         self.menu.write("Welcome to Brick Breaker Game!", align="center", font=("Arial", 24, "bold"))
 
     def show_in_game_stats(self, score, lives, level):
+        self.stats.hideturtle()
         self.stats.clear()
         self.stats.penup()
         self.stats.color("white")
-        self.stats.goto(-280, 260)
-        self.stats.write(f"Score: {score}  Lives: {lives}  Level: {level}", font=("Arial", 16, "normal"))
+        self.stats.goto(-400, 320)
+        self.stats.write(f"Score: {score}  Lives: {lives}  Level: {level}", font=("Arial", 16, "bold"))
 
     def show_game_over(self, score, highest_score):
         self.stats.clear()
