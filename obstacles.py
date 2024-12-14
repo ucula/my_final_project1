@@ -2,7 +2,7 @@ import turtle
 import random
 
 
-class Obstacle(turtle.Turtle):
+class Obstacle(turtle.Turtle):  # Make this class a child of turtle class, there's a reason why I do this ()
     def __init__(self, x, y):
         super().__init__()
         self.shape("square")
@@ -11,6 +11,3 @@ class Obstacle(turtle.Turtle):
         self.shapesize(stretch_wid=1, stretch_len=3)  # set shape of obstacles
         self.penup()
         self.goto(x, y)
-
-    def clear(self):
-        self.clear()

@@ -5,9 +5,9 @@ class Interface:
     def __init__(self):
         turtle.speed(0)
         # assign turtle to each of the function
-        self.border = turtle.Turtle()
-        self.menu = turtle.Turtle()
-        self.stats = turtle.Turtle()
+        self.border = turtle.Turtle()  # Make a turtle for each method
+        self.menu = turtle.Turtle()  # Make a turtle for each method
+        self.stats = turtle.Turtle()  # Make a turtle for each method
         self.width = 800
         self.height = 600
 
@@ -36,7 +36,7 @@ class Interface:
         self.menu.write("Press spacebar to start!", align="center", font=("Arial", 16, "normal"))
 
     # show lives, scores and level in-game
-    def show_in_game_stats(self, score, lives, level):
+    def show_in_game_stats(self, score=0, lives=3, level=1):
         self.stats.hideturtle()
         self.stats.clear()
         self.stats.penup()
@@ -49,14 +49,15 @@ class Interface:
         self.show_in_game_stats(score, lives, level)
 
     # show game_over ui when lives reach 0
-    def show_game_over(self, score, highest_score):
+    def show_game_over(self, score, highest):
         self.stats.hideturtle()
         self.menu.hideturtle()
         self.menu.penup()
         self.menu.color("white")
         self.menu.goto(0, 0)
-        self.menu.write(f"Game Over! Final Score: {score}, Highest Score: {highest_score}",
+        self.menu.write(f"Game Over! Final Score: {score}, Highest Score: {highest}",
                         align="center", font=("Arial", 24, "bold"))
         self.menu.goto(0, -30)
         self.menu.write("Press 'r' to restart", align="center", font=("Arial", 16, "normal"))
-
+        self.menu.goto(0, -60)
+        self.menu.write("Press 'q' to quit", align="center", font=("Arial", 16, "normal"))

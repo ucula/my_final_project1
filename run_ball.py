@@ -21,14 +21,16 @@ class Game:
 
         # This is the reason why I make ball class a child of turtle class. I don't want to type self.ball.ball.method()
         self.ball = Ball()
+        self.vx = 1.5
+        self.vy = 1.5
 
         # Same reason with ball.py
         self.paddle = Paddle()
 
         self.obstacles = []  # A list to store obstacles ID created from for loop
         # Start generate obstacles and put it in list
-        for y in range(275, 200, -30):
-            for x in range(-350, 400, 70):
+        for y in range(275, 260, -30):  # original (270, 200)
+            for x in range(300, 350, 70):  # (-350, 400)
                 self.obstacles.append(Obstacle(x, y))
 
         self.hit_count = 0
@@ -55,17 +57,43 @@ class Game:
         self.run()
 
     def new_game(self):
+        self.scores = 0
+        self.level = 1
+        self.lives = 3
+        self.vx = 1.5
+        self.vy = 1.5
         self.ui.menu.clear()
         self.ball = Ball()
         self.paddle = Paddle()
-        self.lives = 3
         self.ball.goto(0, 0)
         self.ui.stats.clear()
         for obstacle in self.obstacles:
             obstacle.hideturtle()
         self.obstacles.clear()
-        for y in range(275, 200, -30):
-            for x in range(-350, 400, 70):
+        for y in range(275, 260, -30):  # original (270, 200)
+            for x in range(300, 350, 70):  # (-350, 400)
+                self.obstacles.append(Obstacle(x, y))
+        self.paddle.goto(0, -250)
+
+        # Restart game by running the game loop
+        self.run()
+
+    def level_up(self):
+        self.level += 1
+        self.vx += 0.5
+        self.vy += 0.5
+        self.ball.hideturtle()
+        self.paddle.hideturtle()
+        self.ui.menu.clear()
+        self.ball = Ball(self.vx, self.vy)
+        self.paddle = Paddle()
+        self.ball.goto(0, 0)
+        self.ui.stats.clear()
+        for obstacle in self.obstacles:
+            obstacle.hideturtle()
+        self.obstacles.clear()
+        for y in range(275, 260, -30):  # original (270, 200)
+            for x in range(300, 350, 70):  # (-350, 400)
                 self.obstacles.append(Obstacle(x, y))
 
         # Reset paddle position
@@ -74,7 +102,8 @@ class Game:
         # Restart game by running the game loop
         self.run()
 
-    def end_game(self):
+    @staticmethod
+    def end_game():
         print("See you next time :)")
         sys.exit()
 
@@ -138,8 +167,8 @@ class Game:
             self.lives -= 1  # if hit -1 live
             # restart the game
             self.ball.goto(0, 0)
-            self.ball.vx = 1.5
-            self.ball.vy = 1.5
+            self.ball.vx = self.vy
+            self.ball.vy = self.vx
 
     def check_game_pass(self):
         return len(self.obstacles) == 0
@@ -166,10 +195,7 @@ class Game:
             self.ui.update_in_game_stats(self.scores, self.lives, self.level)
 
             if self.check_game_pass():
-                self.level += 1
-                self.ball.vx += 0.7
-                self.ball.vy += 0.7
-                self.new_game()
+                self.level_up()
 
             # check if live = 0 if so, end the game (break the loop)
             if self.check_game_over():
@@ -184,7 +210,6 @@ class Game:
                     obstacle.hideturtle()
                 self.ui.stats.clear()
                 self.ui.show_game_over(self.scores, self.highest_scores)
-
                 break
 
             turtle.update()  # update screen so turtle doesn't crash
@@ -196,10 +221,6 @@ class Game:
             time.sleep(0.001)
 
         self.screen.onkey(self.new_game, "r")
-        self.scores = 0
-        self.level = 1
-        self.ball.vx = 1.5
-        self.ball.vy = 1.5
         self.screen.onkey(self.end_game, "q")
 
 

@@ -1,7 +1,7 @@
 import turtle
 
 
-class Paddle(turtle.Turtle):
+class Paddle(turtle.Turtle):  # Make this class a child of turtle class, there's a reason why I do this ()
     def __init__(self):
         super().__init__()  # I do this because I don't want to type self.paddle.(Method)
         self.penup()
