@@ -29,8 +29,8 @@ class Game:
 
         self.obstacles = []  # A list to store obstacles ID created from for loop
         # Start generate obstacles and put it in list
-        for y in range(275, 260, -30):  # original (270, 200)
-            for x in range(300, 350, 70):  # (-350, 400)
+        for y in range(275, 200, -30):  # original (270, 200)
+            for x in range(-350, 400, 70):  # (-350, 400)
                 self.obstacles.append(Obstacle(x, y))
 
         self.hit_count = 0
@@ -70,8 +70,8 @@ class Game:
         for obstacle in self.obstacles:
             obstacle.hideturtle()
         self.obstacles.clear()
-        for y in range(275, 260, -30):  # original (270, 200)
-            for x in range(300, 350, 70):  # (-350, 400)
+        for y in range(270, 200, -30):  # original (270, 200)
+            for x in range(-350, 400, 70):  # (-350, 400)
                 self.obstacles.append(Obstacle(x, y))
         self.paddle.goto(0, -250)
 
@@ -92,8 +92,8 @@ class Game:
         for obstacle in self.obstacles:
             obstacle.hideturtle()
         self.obstacles.clear()
-        for y in range(275, 260, -30):  # original (270, 200)
-            for x in range(300, 350, 70):  # (-350, 400)
+        for y in range(270, 200, -30):  # original (270, 200)
+            for x in range(-350, 400, 70):  # (-350, 400)
                 self.obstacles.append(Obstacle(x, y))
 
         # Reset paddle position
