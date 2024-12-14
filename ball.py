@@ -21,3 +21,6 @@ class Ball(turtle.Turtle):  # Make this class a child of turtle class, there's a
     # Change direction of the ball in ycor
     def bounce_off_ycor(self):
         self.vy = -self.vy
+
+    def setcolor(self):
+        self.color('blue')
