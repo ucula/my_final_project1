@@ -8,8 +8,10 @@ class Obstacle(turtle.Turtle):
     """
     def __init__(self, x, y):
         super().__init__()
+        self.x = x
+        self.y = y
         self.penup()
         self.shape("square")
         self.color(random.choice(["peru", "cyan", "gold1", "olivedrab", "blue", "pink"]))
         self.shapesize(1, 3)
-        self.goto(x, y)
+        self.goto(self.x, self.y)
