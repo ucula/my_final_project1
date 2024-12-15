@@ -29,11 +29,11 @@ Here's a link to how to start the game and play it.
 *place UML here*
 
 ### - Purpose for each class -
-class Ball: creates a ball object that can change its direction when collides with any surfaces
-class Paddle: create a paddle object that can move left and right
-class Obstacles: creates an obstacle with a rectangle shape and random color
-class InterfaceL: stores all UI interfaces of the game whether it's border, stats, etc.
-class run_ball: stores the mechanics of the game, stores all class objects, and makes them functional
+1.class Ball: creates a ball object that can change its direction when collides with any surfaces
+2.class Paddle: create a paddle object that can move left and right
+3.class Obstacles: creates an obstacle with a rectangle shape and random colour
+4.class InterfaceL: stores all UI interfaces of the game whether it's border, stats, etc.
+5.class run_ball: stores the mechanics of the game, stores all class objects, and makes them functional
 
 ### - Use/Extend/Modify the code -
 I copied the method of drawing borders and made it work with other UI interfaces, I put the method to move the paddle in the paddle class because I feel like that method should be the property of the paddle object.
