@@ -49,10 +49,15 @@ How I test my code is through trial and error, I ran it and read the terminal er
 
 ### For bugs to be resolved : 
 (I could be wrong here on every topic it's just my assumption on how this happens)
-1. While playing, sometimes the ball goes through the paddle, which is likely to happen because the time the turtle updates, the ball gets to the paddle before the check function is triggered.
-2. The ball moves normally on my pc but slowly on my friend's pc. I have already provided a way to fix this problem in the run_ball.py. But the reason I have to put this in is that TA's pc might be like mine or my friend's so if the ball moves slowly please refer to the fix method in run_ball.py (at the bottom of run_ball.py), also you can adjust the speed, I've already commented in where to set the initial speed.
-3. There's a chance the random obstacle spawner might triggered more than once. (This rarely happens, I found this bug while writing this README)
+- While playing, sometimes the ball goes through the paddle, which is likely to happen because the time the turtle updates, the ball gets to the paddle before the check function is triggered.
+- The ball moves normally on my pc but slowly on my friend's pc. I have already provided a way to fix this problem in the run_ball.py. But the reason I have to put this in is that TA's pc might be like mine or 
+  my friend's so if the ball moves slowly please refer to the fix method in run_ball.py (at the bottom of run_ball.py), also you can adjust the speed, I've already commented in where to set the initial speed.
+- There's a chance the random obstacle spawner might triggered more than once. (This rarely happens, I found this bug while writing this README)
 
 ## - Sophistication level: 90 -
-if 100 is for inelastic collisions, I say mine would be 90 because my game can create a new brick at a random location and it collides with multiple surfaces it's quite unique for the game to have multiple obstacles that can randomly spawn making the game more challenging and the ball can speed up itself. I even implemented a method to fix the game, in case it goes into an infinite loop because of elastic collision (I know that it's not the best method but at least I tried to find a way to fix it). Moreover, I almost rewrote the entire code again, I don't see much of Prof. Paruj's code in mine.
+- if 100 is for inelastic collisions, I say mine would be 90 because my game can create a new brick at a random location and it collides with multiple surfaces it's quite unique for the game to have multiple 
+  obstacles that can randomly spawn making the game more challenging and the ball can speed up itself. 
+
+- I even implemented a method to fix the game, in case it goes into an infinite loop because of elastic collision (I know that it's not the best method but at least I tried to find a way to fix it). Moreover, I 
+  almost rewrote the entire code again, I don't see much of Prof. Paruj's code in mine.
 
