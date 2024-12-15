@@ -21,7 +21,7 @@ class Game:
         self.screen.setup(1000, 800)
         self.screen.bgcolor("black")
 
-        # set the speed of ball here
+        # set the initial speed of ball here
         self.vx = 1.5
         self.vy = 1.5
 
@@ -33,13 +33,13 @@ class Game:
         self.level = 1
 
         # set lives here
-        self.lives = 3
+        self.lives = 6
 
         self.hit_count = 0
         self.last_spawn = time.time()
         self.highest_scores = 0
-        for y in range(270, 200, -30):
-            for x in range(-350, 400, 70):
+        for y in range(270, 200, -30):  # cheat code for testing change this to (270, 260, -30)
+            for x in range(-350, 400, 70):  # cheat code for testing change this to (350, 300, 70)
                 self.obstacles.append(Obstacle(x, y))
 
     def menu(self):
@@ -57,7 +57,7 @@ class Game:
         # Reset all player stats(variables) and run the game again
         self.scores = 0
         self.level = 1
-        self.lives = 3
+        self.lives = 6
         self.vx = 1.5
         self.vy = 1.5
         self.ui.menu.clear()
@@ -68,8 +68,8 @@ class Game:
         for obstacle in self.obstacles:
             obstacle.hideturtle()
         self.obstacles.clear()
-        for y in range(270, 200, -30):  # original (270, 200)
-            for x in range(-350, 400, 70):  # (-350, 400)
+        for y in range(270, 200, -30):
+            for x in range(-350, 400, 70):
                 self.obstacles.append(Obstacle(x, y))
         self.paddle.goto(0, -250)
         self.screen.onkey(None, "r")
@@ -82,8 +82,8 @@ class Game:
         and re-position ball/paddle and obstacles
         """
         self.level += 1
-        self.vx += 0.5
-        self.vy += 0.5
+        self.vx += 0.5  # Change an addition to ball's velocity after entering new level here
+        self.vy += 0.5  # Change an addition to ball's velocity after entering new level here
         self.ball.hideturtle()
         self.paddle.hideturtle()
         self.ui.menu.clear()
@@ -182,7 +182,7 @@ class Game:
                 break
             turtle.update()
             """
-            This is here because when tested my pc if there's no time.sleep the ball will very very fast 
+            This is here because when tested on my pc if there's no time.sleep the ball will moves very very fast 
             making it unplayable for me, but when tested on my friends' pc with time.sleep the ball runs
             very slow. (I don't know if it's a bug or no)
             """
