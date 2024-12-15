@@ -1,4 +1,4 @@
-# --- Brick Breaker Pong_game ----
+# --- Brick Breaker Pong_game ---
 ## - About my project -
 This project is about a classic pong game rewrite with python.turtle method, but there's some extra features, which our classic one don't have.
 
