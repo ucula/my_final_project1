@@ -45,7 +45,8 @@ Also, I rewrote how the game works. Prof.Paruj has __redraw and __draw methods f
 ### - Description/Bugs known to be resolved -
 How I test my code is through trial and error, I ran it and read the terminal error on which line the problem occurred. For balancing the game I played it myself paired with giving it out to some of my friends to test it and observe how they perform. From this I can say that my project is not working at 100% the range will be between 80-90%. 
 
-For bugs to be resolved : (I could be wrong here on every topic it's just my assumption on how this happens)
+### For bugs to be resolved : 
+(I could be wrong here on every topic it's just my assumption on how this happens)
 1. While playing, sometimes the ball goes through the paddle, which is likely to happen because the time the turtle updates, the ball gets to the paddle before the check function is triggered.
 2. The ball moves normally on my pc but slowly on my friend's pc. I have already provided a way to fix this problem in the run_ball.py. But the reason I have to put this in is that TA's pc might be like mine or my friend's so if the ball moves slowly please refer to the fix method in run_ball.py (at the bottom of run_ball.py), also you can adjust the speed, I've already commented in where to set the initial speed.
 3. There's a chance the random obstacle spawner might triggered more than once. (This rarely happens, I found this bug while writing this README)
