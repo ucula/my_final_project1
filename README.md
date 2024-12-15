@@ -26,7 +26,8 @@ Here's a link to how to start the game and play it.
 (*place youtube link here*)
 ## - Project design and implementation -
 ### - UML -
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/208e071b-531b-4be2-b879-c270c13973c8)
+
 
 
 ### - Purpose for each class -
