@@ -15,11 +15,9 @@ This game also saves your highest scores, in case you want to know what's your b
 4. Have fun!
  
 ## - Usage -
-To interact with this game. On your keyboard, use the Left and Right keys to move left and right in games.
-
-The expected output should be the ball moving around, and when it hits the wall/paddle or bricks it should bounce 90 degrees back. 
-
-Sadly I wasn't able to implement the inelastic collision, so sometimes the ball could potentially get stuck in a loop but I've already made a way to fix that in the game already 
+- To interact with this game. On your keyboard, use the Left and Right keys to move left and right in games.
+- The expected output should be the ball moving around, and when it hits the wall/paddle or bricks it should bounce 90 degrees back. 
+- Sadly I wasn't able to implement the inelastic collision, so sometimes the ball could potentially get stuck in a loop but I've already made a way to fix that in the game already 
 so no worries!
 
 Here's a link to how to start the game and play it. 
@@ -40,12 +38,17 @@ Here's a link to how to start the game and play it.
 
 
 ## - Use/Extend/Modify the code -
-I copied the method of drawing borders and made it work with other UI interfaces, I put the method to move the paddle in the paddle class because I feel like that method should be the property of the paddle object.
-
-Also, I rewrote how the game works. Prof.Paruj has __redraw and __draw methods for moving and animating objects but mine is the turtle itself, yes I know, doing it like Prof.Paruj would be better because the object can be deleted instantly and redrew at a different location and it's less laggy, but for my turtle, it seems like I cannot do it that way so the only method I could come up with to deal with this is to use hideturtle() method. Using this method might not be the best option because you just hide it. it didn't go away it's still there on the screen if the player keeps playing for like an hour, I'm sure some lags and nonfunctioning are likely to happen.
+- I copied the method of drawing borders and made it work with other UI interfaces
+- I put the method to move the paddle in the paddle class because I feel like that method should be the property of the paddle object.
+- I rewrote how the game works. Prof.Paruj has __redraw and __draw methods for moving and animating objects but mine is the turtle itself,
+  _ yes I know, doing it like Prof.Paruj would be better because the object can be deleted instantly and redrew at a different location and it's less laggy, but for my turtle, it seems like I cannot do it that way so the only method I could come up with to deal with this is to use hideturtle() method.
+  _ Using this method might not be the best option because you just hide it. it didn't go away it's still there on the screen if the player keeps playing for like an hour, I'm sure some lags and nonfunctioning are likely to happen.
 
 ## - Description/Bugs known to be resolved -
-How I test my code is through trial and error, I ran it and read the terminal error on which line the problem occurred. For balancing the game I played it myself paired with giving it out to some of my friends to test it and observe how they perform. From this I can say that my project is not working at 100% the range will be between 80-90%. 
+**How I test my code: ** 
+- Through trial and error, I ran it and read the terminal error on which line the problem occurred.
+- For balancing the game I played it myself paired with giving it out to some of my friends to test it and observe how they perform.
+- From this, I can say that my project is not working at 100% the range will be between 80-90%. 
 
 ## For bugs to be resolved : 
 (I could be wrong here on every topic it's just my assumption on how this happens)
