@@ -6,7 +6,7 @@ First, for every 5 times the ball bounces will randomly create a new brick at ra
 
 Second, when playing, the ball speed will keep increasing bit by bit to increase difficulty, when the stage is cleared the speed will be reduced to the base speed of the new level.
 
-This game also saves your highest scores, in case you want to know what's you best play too.
+This game also saves your highest scores, in case you want to know what's your best play too.
 
 ## - How to install/run -
 1. Fork this repo to your github 
