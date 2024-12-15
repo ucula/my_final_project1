@@ -16,10 +16,12 @@ This game also saves your highest scores, in case you want to know what's you be
  
 ## - Usage -
 To interact with this game. On your keyboard, use Left and Right keys to move left and move right in game.
+
 The expect output should be the ball moving around , and when it hits the wall/paddle or bricks it should bounce 90 degrees back. 
+
 Sadly I wasn't able to implement the inelastic collision, so sometimes the ball could potentially get stuck in a loop but I've already made a way to fix that in the game already 
 so no worries!
-Here's a link to how to start the game and play it. 
 
+Here's a link to how to start the game and play it. 
 https://youtu.be/9ARQvKbF_68
 ## - UML -
