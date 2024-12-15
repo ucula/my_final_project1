@@ -26,7 +26,8 @@ Here's a link to how to start the game and play it.
 (*place youtube link here*)
 ## - Project design and implementation -
 ### - UML -
-*place UML here*
+![Uploading image.png…]()
+
 
 ### - Purpose for each class -
 1. class Ball: creates a ball object that can change its direction when collides with any surfaces
