@@ -21,7 +21,7 @@ This game also saves your highest scores, in case you want to know what's your b
 so no worries!
 
 Here's a link to how to start the game and play it. 
-(*place youtube link here*)
+- https://youtu.be/cvrcs0FMv7E
 ## - Project design and implementation -
 ### - UML -
 ![image](https://github.com/user-attachments/assets/208e071b-531b-4be2-b879-c270c13973c8)
