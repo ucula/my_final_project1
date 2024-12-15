@@ -20,7 +20,7 @@ This game also saves your highest scores, in case you want to know what's your b
 - Sadly I wasn't able to implement the inelastic collision, so sometimes the ball could potentially get stuck in a loop but I've already made a way to fix that in the game already 
 so no worries!
 
-Here's a link to how to start the game and play it. 
+Here's a link to my demo gameplay and me explaining each feature.
 - https://youtu.be/cvrcs0FMv7E
 ## - Project design and implementation -
 ### - UML -
