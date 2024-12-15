@@ -20,15 +20,21 @@ class Game:
         self.screen = turtle.Screen()
         self.screen.setup(1000, 800)
         self.screen.bgcolor("black")
+
+        # set the speed of ball here
         self.vx = 1.5
         self.vy = 1.5
-        self.ball = Ball()
+
+        self.ball = Ball(self.vx, self.vy)
         self.paddle = Paddle()
         self.ui = Interface()
         self.obstacles = []
         self.scores = 0
         self.level = 1
+
+        # set lives here
         self.lives = 3
+
         self.hit_count = 0
         self.last_spawn = time.time()
         self.highest_scores = 0
@@ -44,7 +50,7 @@ class Game:
     def start_game(self):
         self.ui.menu.clear()
         self.ui.draw_border()
-        self.ui.show_in_game_stats(self.scores, self.lives, self.level)
+        self.ui.update_stats(self.scores, self.lives, self.level)
         self.run()
 
     def new_game(self):
@@ -55,7 +61,7 @@ class Game:
         self.vx = 1.5
         self.vy = 1.5
         self.ui.menu.clear()
-        self.ball = Ball()
+        self.ball = Ball(self.vx, self.vy)
         self.paddle = Paddle()
         self.ball.goto(0, 0)
         self.ui.stats.clear()
@@ -66,6 +72,8 @@ class Game:
             for x in range(-350, 400, 70):  # (-350, 400)
                 self.obstacles.append(Obstacle(x, y))
         self.paddle.goto(0, -250)
+        self.screen.onkey(None, "r")
+        self.screen.onkey(None, "q")
         self.run()
 
     def level_up(self):
@@ -90,12 +98,6 @@ class Game:
             for x in range(-350, 400, 70):  # (-350, 400)
                 self.obstacles.append(Obstacle(x, y))
         self.paddle.goto(0, -250)
-
-    @staticmethod
-    def end_game():
-        # This is here to be used with onkey turtle methods
-        print("See you next time :)")
-        sys.exit()
 
     def check_collisions(self):
         # Check for collisions on every single surfaces
@@ -155,28 +157,28 @@ class Game:
             self.ball.vx = self.vy
             self.ball.vy = self.vx
 
-    def check_game_pass(self):
-        return len(self.obstacles) == 0
-
-    def check_game_over(self):
-        return self.lives == 0
+    def check_game_state(self):
+        # Check for both level up/ player out of lives
+        if len(self.obstacles) == 0:
+            self.level_up()
+        if self.lives == 0:
+            self.highest_scores = max(self.highest_scores, self.scores)
+            self.ball.hideturtle()
+            self.paddle.hideturtle()
+            for obstacle in self.obstacles:
+                obstacle.hideturtle()
+            self.ui.stats.clear()
+            self.ui.game_over(self.scores, self.highest_scores)
+            return False
+        return True
 
     def run(self):
         while True:
             self.ball.move()
             self.check_collisions()
             self.check_lose_life()
-            self.ui.update_in_game_stats(self.scores, self.lives, self.level)
-            if self.check_game_pass():
-                self.level_up()
-            if self.check_game_over():
-                self.highest_scores = max(self.highest_scores, self.scores)
-                self.ball.hideturtle()
-                self.paddle.hideturtle()
-                for obstacle in self.obstacles:
-                    obstacle.hideturtle()
-                self.ui.stats.clear()
-                self.ui.show_game_over(self.scores, self.highest_scores)
+            self.ui.update_stats(self.scores, self.lives, self.level)
+            if not self.check_game_state():
                 break
             turtle.update()
             """
@@ -187,7 +189,8 @@ class Game:
             time.sleep(0.001)
 
         self.screen.onkey(self.new_game, "r")
-        self.screen.onkey(self.end_game, "q")
+        self.screen.onkey(sys.exit, "q")
+        self.screen.listen()
 
 
 a = Game()

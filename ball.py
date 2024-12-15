@@ -6,7 +6,7 @@ class Ball(turtle.Turtle):
     """
     A class for initializing a ball object with initial velocity of vx and vy
     """
-    def __init__(self, vx=1.5, vy=1.5):
+    def __init__(self, vx, vy):
         super().__init__()
         self.shape('circle')
         self.color('red')
