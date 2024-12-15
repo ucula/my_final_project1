@@ -2,6 +2,9 @@ import turtle
 
 
 class Interface:
+    """
+    A class used for storing in game UI/stats and looks
+    """
     def __init__(self):
         turtle.speed(0)
         self.border = turtle.Turtle(visible=False)  # Make a turtle for each method
@@ -11,6 +14,7 @@ class Interface:
         self.height = 600
 
     def draw_border(self):
+        # Create a border for the game with width/height of 800x600
         self.border.penup()
         self.border.color("white")
         self.border.pensize(5)
@@ -23,6 +27,7 @@ class Interface:
             self.border.left(90)
 
     def show_menu(self):
+        # Shows a welcome message and tells the user the method to continue
         self.menu.hideturtle()
         self.menu.penup()
         self.menu.color("white")
@@ -32,6 +37,7 @@ class Interface:
         self.menu.write("Press spacebar to start!", align="center", font=("Arial", 16, "normal"))
 
     def show_in_game_stats(self, score=0, lives=3, level=1):
+        # Shows all player stats at the top left corner of screen
         self.stats.hideturtle()
         self.stats.clear()
         self.stats.penup()
@@ -43,6 +49,10 @@ class Interface:
         self.show_in_game_stats(score, lives, level)
 
     def show_game_over(self, score, highest):
+        """
+        Show a message about player's current score highest score
+        also shows options to quit the game or retry
+        """
         self.stats.hideturtle()
         self.menu.hideturtle()
         self.menu.penup()

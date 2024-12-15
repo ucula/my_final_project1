@@ -2,6 +2,9 @@ import turtle
 
 
 class Paddle(turtle.Turtle):
+    """
+    A class for creating functioning paddle that can move left and right
+    """
     def __init__(self):
         super().__init__()
         self.penup()

@@ -3,6 +3,9 @@ import random
 
 
 class Ball(turtle.Turtle):
+    """
+    A class for initializing a ball object with initial velocity of vx and vy
+    """
     def __init__(self, vx=1.5, vy=1.5):
         super().__init__()
         self.shape('circle')
@@ -14,8 +17,10 @@ class Ball(turtle.Turtle):
     def move(self):
         self.goto(self.xcor() + self.vx, self.ycor() + self.vy)
 
-    def bounce_off_xcor(self):
+    def bounce_x(self):
+        # Reverses the ball direction and adds a bit of velocity change
         self.vx = -self.vx + random.uniform(-0.1, 0.1)
 
-    def bounce_off_ycor(self):
+    def bounce_y(self):
+        # Reverses the ball direction and adds a bit of velocity change
         self.vy = -self.vy + random.uniform(-0.1, 0.1)

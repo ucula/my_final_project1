@@ -3,6 +3,9 @@ import random
 
 
 class Obstacle(turtle.Turtle):
+    """
+    A class for creating and drawing variety of colourful obstacles
+    """
     def __init__(self, x, y):
         super().__init__()
         self.shape("square")

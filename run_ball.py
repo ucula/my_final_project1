@@ -9,6 +9,9 @@ from interface import Interface
 
 
 class Game:
+    """
+    Put all classes together creating a functioning pong game
+    """
     def __init__(self):
         turtle.listen()
         turtle.speed(0)
@@ -27,14 +30,14 @@ class Game:
         self.level = 1
         self.lives = 3
         self.hit_count = 0
-        self.spawn_delay = 0.1
         self.last_spawn = time.time()
         self.highest_scores = 0
-        for y in range(275, 200, -30):
+        for y in range(270, 200, -30):
             for x in range(-350, 400, 70):
                 self.obstacles.append(Obstacle(x, y))
 
     def menu(self):
+        # Show menu when player first run the program and wait for space bar response
         self.ui.show_menu()
         self.screen.onkey(self.start_game, "space")
 
@@ -45,6 +48,7 @@ class Game:
         self.run()
 
     def new_game(self):
+        # Reset all player stats(variables) and run the game again
         self.scores = 0
         self.level = 1
         self.lives = 3
@@ -65,6 +69,10 @@ class Game:
         self.run()
 
     def level_up(self):
+        """
+        Increases the value of some variables such as level and the speed of the ball
+        and re-position ball/paddle and obstacles
+        """
         self.level += 1
         self.vx += 0.5
         self.vy += 0.5
@@ -85,52 +93,52 @@ class Game:
 
     @staticmethod
     def end_game():
+        # This is here to be used with onkey turtle methods
         print("See you next time :)")
         sys.exit()
 
-    def check_wall_collision_x(self):
+    def check_collisions(self):
+        # Check for collisions on every single surfaces
         if self.ball.xcor() > 390:
             self.ball.setx(390)
-            self.ball.bounce_off_xcor()
+            self.ball.bounce_x()
             self.hit_count += 1
 
         if self.ball.xcor() < -390:
             self.ball.setx(-390)
-            self.ball.bounce_off_xcor()
+            self.ball.bounce_x()
             self.hit_count += 1
         self.add_random_obstacle()
 
-    def check_wall_collision_y(self):
         if self.ball.ycor() > 287:
             self.ball.sety(287)
-            self.ball.bounce_off_ycor()
+            self.ball.bounce_y()
             self.hit_count += 1
         self.add_random_obstacle()
 
-    def check_paddle_bounce(self):
         if -240 < self.ball.ycor() < -230 and \
                 self.paddle.xcor() - 50 < self.ball.xcor() < self.paddle.xcor() + 50:
             self.ball.sety(-231)
-            self.ball.bounce_off_ycor()
+            self.ball.bounce_y()
             self.hit_count += 1
         self.add_random_obstacle()
 
-    def check_obstacles_collision(self):
         for obstacle in self.obstacles:
             if obstacle.isvisible() and \
                     obstacle.ycor() - 10 < self.ball.ycor() < obstacle.ycor() + 10 and \
                     obstacle.xcor() - 35 < self.ball.xcor() < obstacle.xcor() + 35:
                 obstacle.hideturtle()
                 self.obstacles.remove(obstacle)
-                self.ball.bounce_off_ycor()
+                self.ball.bounce_y()
                 self.scores += 100
                 self.hit_count += 1
         self.add_random_obstacle()
 
     def add_random_obstacle(self):
+        # Adds in a random obstacles for every 10 times the ball bounces
         if self.hit_count == 10:
             current_time = time.time()
-            if current_time - self.last_spawn >= self.spawn_delay:
+            if current_time - self.last_spawn >= 0.1:
                 self.hit_count = 0
                 self.last_spawn = current_time
                 x = random.randint(-350, 350)
@@ -139,6 +147,7 @@ class Game:
                 self.obstacles.append(new_obstacle)
 
     def check_lose_life(self):
+        # Check for if the ball hits the bottom of the border
         if self.ball.ycor() < -287:
             self.lives -= 1  # if hit -1 live
             # restart the game
@@ -155,17 +164,13 @@ class Game:
     def run(self):
         while True:
             self.ball.move()
-            self.check_wall_collision_x()
-            self.check_wall_collision_y()
-            self.check_paddle_bounce()
-            self.check_obstacles_collision()
+            self.check_collisions()
             self.check_lose_life()
             self.ui.update_in_game_stats(self.scores, self.lives, self.level)
             if self.check_game_pass():
                 self.level_up()
             if self.check_game_over():
-                if self.scores > self.highest_scores:
-                    self.highest_scores = self.scores
+                self.highest_scores = max(self.highest_scores, self.scores)
                 self.ball.hideturtle()
                 self.paddle.hideturtle()
                 for obstacle in self.obstacles:
@@ -174,6 +179,11 @@ class Game:
                 self.ui.show_game_over(self.scores, self.highest_scores)
                 break
             turtle.update()
+            """
+            This is here because when tested my pc if there's no time.sleep the ball will very very fast 
+            making it unplayable for me, but when tested on my friends' pc with time.sleep the ball runs
+            very slow. (I don't know if it's a bug or no)
+            """
             time.sleep(0.001)
 
         self.screen.onkey(self.new_game, "r")
